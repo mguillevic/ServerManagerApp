@@ -1,3 +1,5 @@
+from Rest import app
+
 from Controller import ServerManagerController, GameController
 from Controller.ClientServerController import create_client,get_all_clients
 from sqlalchemy import create_engine,MetaData
@@ -5,7 +7,6 @@ from sqlalchemy.orm import sessionmaker
 
 import json
 from flask import Flask, request,Response, jsonify
-app = Flask(__name__)
 
 # sql connection
 engine = create_engine("mysql+pymysql://user:RdsDb120922@cloud-gaming.cvdwrd5aphyd.us-east-2.rds.amazonaws.com:3306/cloudgaming",echo = True)
@@ -56,7 +57,3 @@ def play():
 
 # curl http://localhost:5000/games
 
-
-
-
-app.run()
