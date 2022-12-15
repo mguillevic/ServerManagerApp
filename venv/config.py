@@ -11,8 +11,7 @@ class Config:
     # Only required when using the session object
     # Generated with secrets.token_urlsafe(16)
     # You could also use os.urandom(16)
-    SECRET_KEY = os.urandom(16)
-    #"11Fnw8U6DXrMFvbH9jCdZQ"
+    SECRET_KEY = "11Fnw8U6DXrMFvbH9jCdZQ"
 
 
 class ProductionConfig(Config):

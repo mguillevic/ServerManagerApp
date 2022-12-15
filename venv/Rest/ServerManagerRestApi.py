@@ -35,6 +35,13 @@ def get_games():
     games = GameController.get_games(session)
     return jsonify(games)
 
+@app.route("/test", methods=["GET"])
+def get_test():
+    val = {
+        "i":"rjr"
+    }
+    return jsonify(val)
+
 @app.route("/games", methods=["POST"])
 def create_game():
     GameController.create_game(session,request.json['name'],request.json['cpu'],request.json['ram'])
