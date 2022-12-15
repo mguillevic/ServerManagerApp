@@ -74,7 +74,7 @@ def handle_client_connection(session,request):
     links_client = get_servers_by_client_id(session,new_client.id)
     for serv in links_client:
         #add latency criteria
-        if serv.cpu_usage<game.cpu_usage and serv.available_ram > game.ram and not serv.down:
+        if serv.cpu_usage<game.cpu_usage and serv.available_ram > game.ram and serv.latency<0.15 and not serv.down:
             return serv.ip
 
     #if no server works
