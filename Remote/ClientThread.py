@@ -22,12 +22,13 @@ class ClientThread(Thread):
         while True:
             current_time = time.time()
             if current_time-self.prev_time >= 5:
+
                 try:
                     response = get_cpu_and_ram_from_server(self.ip)
                     if str(response) == "<Response [404]>":
                         print("error")
                         self.count_down = self.count_down+1
-                        if self.count_down == 1:
+                        if self.count_down == 300:
                             self.down = True
                             update_down_status(self.session,self.ip,True)
                     else :
@@ -43,7 +44,7 @@ class ClientThread(Thread):
                 except Exception as e:    # This is the correct syntax
                     print(e)
                     self.count_down = self.count_down + 1
-                    if self.count_down == 1:
+                    if self.count_down == 300:
                         self.down = True
                         update_down_status(self.session, self.ip, True)
 

@@ -1,7 +1,7 @@
 from json import load
 from urllib.request import urlopen
 from Model.ClientServerModels import ClientModel,ServerModel,ServerClientLink
-from sqlalchemy import select, exc
+from sqlalchemy import select, exc, exists
 
 
 def create_client(ip,session):
@@ -33,11 +33,14 @@ def create_server(session,ip):
         loc = data['loc'].split(',')
     server_model = ServerModel(ip=ip, latitude=float(loc[0]), longitude=float(loc[1]),down = False)
     try:
-        session.add(server_model)
-        session.commit()
+        exist = session.query(exists(ServerModel).where(ServerModel.ip == ip)).scalar()
+        if not exist :
+            session.add(server_model)
+            session.commit()
     except exc.SQLAlchemyError as e:
         session.rollback()
         print(str(e.orig))
+    print(server_model.ip)
     return server_model
 
 def update_down_status(session,ip,down):
@@ -55,13 +58,12 @@ def update_cpu_ram_from_server_ip(session, ip, cpu, ram,latence):
     server=None
     try:
         server = session.query(ServerModel).filter(ServerModel.ip==ip)\
-            .update({'cpu_usage':cpu})\
-            .update({'available_ram':ram})\
-            .update({'latency':latence})
+            .update({'cpu_usage':cpu, 'available_ram':ram, 'latency':latence})
+
         session.commit()
-    except:
+    except exc.SQLAlchemyError as e:
         session.rollback()
-        print("An exception occurred")
+        print(e)
     return server
 
 def insert_client_server_link(session,client_id,server_id,distance):
