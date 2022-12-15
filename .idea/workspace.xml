@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="c1d962b5-672c-47b6-94d9-18999a92cf8c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/venv/Rest/ServerManagerRestApi.py" beforeDir="false" afterPath="$PROJECT_DIR$/venv/Rest/ServerManagerRestApi.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/venv/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/venv/config.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/venv/dev.ini" beforeDir="false" afterPath="$PROJECT_DIR$/venv/dev.ini" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
