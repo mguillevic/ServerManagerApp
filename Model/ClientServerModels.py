@@ -10,6 +10,7 @@ class ServerModel(Base):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     ip = Column(String(20))
+    ip_private = Column(String(20))
     latitude = Column(Float)
     longitude = Column(Float)
     cpu_usage = Column(Float)

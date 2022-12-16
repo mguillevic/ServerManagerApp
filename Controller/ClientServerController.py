@@ -23,7 +23,7 @@ def get_all_clients(session):
     stmt = select(ClientModel)
     return session.execute(stmt).scalars()
 
-def create_server(session,ip):
+def create_update_server(session,ip, private_ip):
     url = 'https://ipinfo.io/' + ip + '/json'
     res = urlopen(url)
     # response from url(if res==None then check connection)
@@ -31,12 +31,14 @@ def create_server(session,ip):
     loc = [37.7725,-122.415]
     if "loc" in data:
         loc = data['loc'].split(',')
-    server_model = ServerModel(ip=ip, latitude=float(loc[0]), longitude=float(loc[1]),down = False)
+    server_model = ServerModel(ip=ip,ip_private=private_ip, latitude=float(loc[0]), longitude=float(loc[1]),down = False)
     try:
-        exist = session.query(exists(ServerModel).where(ServerModel.ip == ip)).scalar()
+        exist = session.query(exists(ServerModel).where(ServerModel.ip_private == private_ip)).scalar()
         if not exist :
             session.add(server_model)
             session.commit()
+        server_model = session.query(ServerModel).filter(ServerModel.private_ip==private_ip)\
+            .update({'ip':ip})
     except exc.SQLAlchemyError as e:
         session.rollback()
         print(str(e.orig))

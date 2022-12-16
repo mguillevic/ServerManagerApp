@@ -13,6 +13,7 @@ from sqlalchemy import select, exists
 #multithread to get cpu and ram
 threads = []
 
+
 def create_server_manager_model(session,port):
     url = 'https://ipinfo.io/json'
     res = urlopen(url)
@@ -34,7 +35,7 @@ def get_server_manager_model_by_ip(session,ip):
     return session.execute(stmt).scalars()
 
 def add_server(request,session):
-    server_model = create_server(session,request['ip'])
+    server_model = create_server(session,request['ip'],request['private_ip'])
     clients = get_all_clients(session)
     url = 'https://ipinfo.io/json'
     res = urlopen(url)
