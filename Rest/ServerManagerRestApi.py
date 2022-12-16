@@ -25,7 +25,8 @@ def add_server_manager():
 @app.route('/server/add',methods=['POST'])
 def add_server():
     ServerManagerController.add_server({
-        'ip': request.json['ip']
+        'ip': request.json['ip'],
+        'private_ip': request.json['private_ip']
     },
     session)
     return Response(status=201, mimetype='application/json')

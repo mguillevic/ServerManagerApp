@@ -37,13 +37,12 @@ def create_update_server(session,ip, private_ip):
         if not exist :
             session.add(server_model)
             session.commit()
-        session.query(ServerModel).filter(ServerModel.ip_private==private_ip)\
+        server_model = session.query(ServerModel).filter(ServerModel.private_ip==private_ip)\
             .update({'ip':ip})
-        server_model =session.query(ServerModel).filter(ServerModel.ip_private==private_ip).scalar()
     except exc.SQLAlchemyError as e:
         session.rollback()
         print(str(e.orig))
-
+    print(server_model.ip)
     return server_model
 
 def update_down_status(session,ip,down):

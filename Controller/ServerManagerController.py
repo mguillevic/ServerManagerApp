@@ -1,4 +1,4 @@
-from Controller.ClientServerController import create_client, create_server, get_all_clients, \
+from Controller.ClientServerController import create_client, create_update_server, get_all_clients, \
 insert_client_server_link, update_cpu_ram_from_server_ip, get_all_servers, get_servers_by_client_id, get_client_by_ip
 from Controller.GameController import get_game_by_name
 from Model.ServerManagerModel import ServerManagerModel
@@ -35,7 +35,7 @@ def get_server_manager_model_by_ip(session,ip):
     return session.execute(stmt).scalars()
 
 def add_server(request,session):
-    server_model = create_server(session,request['ip'],request['private_ip'])
+    server_model = create_update_server(session,request['ip'],request['private_ip'])
     clients = get_all_clients(session)
     url = 'https://ipinfo.io/json'
     res = urlopen(url)
