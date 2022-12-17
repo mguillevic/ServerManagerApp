@@ -9,4 +9,5 @@ class GameModel(Base):
     name = Column(String(100))
     cpu_usage = Column(Float)
     ram = Column(Float)
+    port = Column(Integer)
 

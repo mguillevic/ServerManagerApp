@@ -3,8 +3,8 @@ import json
 from Model.GameModel import GameModel
 from sqlalchemy import select
 
-def create_game(session,name, cpu,ram):
-    game_model = GameModel(name=name, cpu_usage=cpu, ram=ram)
+def create_game(session,name, cpu,ram,port):
+    game_model = GameModel(name=name, cpu_usage=cpu, ram=ram,port=port)
     try:
         session.add(game_model)
         session.commit()

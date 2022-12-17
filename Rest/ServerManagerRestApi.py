@@ -46,7 +46,7 @@ def get_test():
 
 @app.route("/games", methods=["POST"])
 def create_game():
-    GameController.create_game(session,request.json['name'],request.json['cpu'],request.json['ram'])
+    GameController.create_game(session,request.json['name'],request.json['cpu'],request.json['ram'], request.json['port'])
     return Response(status=201, mimetype='application/json')
 
 @app.route("/game/<name>", methods=["GET"])
@@ -61,8 +61,8 @@ def get_game(name):
 
 @app.route("/play/<name>/<ip>", methods=["Get"])
 def play(name,ip):
-    server_ip = ServerManagerController.handle_client_connection(session,name,ip)
-    return jsonify(server_ip)
+    response = ServerManagerController.handle_client_connection(session,name,ip)
+    return jsonify(response)
 
 # curl http://localhost:5000/games
 

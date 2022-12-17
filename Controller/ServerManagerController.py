@@ -77,11 +77,17 @@ def handle_client_connection(session,name,ip):
         #add latency criteria
         if serv.cpu_usage<game.cpu_usage and serv.available_ram > game.ram and serv.latency<0.15 and not serv.down:
             rep = run_shell_script(name,serv.ip)
-            print(rep)
-            return serv.ip
+            response = {
+                'ip': serv.ip,
+                'port': game.port
+            }
+            return response
 
     #if no server works
-    return -1
+    return {
+                'ip': -1,
+                'port': -1
+            }
 
 def begin_thread_for_server_node(server_ip,session):
     newthread = ClientThread(server_ip,session)
