@@ -28,7 +28,7 @@ class ClientThread(Thread):
                     if str(response) == "<Response [404]>":
                         print("error")
                         self.count_down = self.count_down+1
-                        if self.count_down == 300:
+                        if self.count_down == 6:
                             self.down = True
                             update_down_status(self.session,self.ip,True)
                     else :
@@ -44,7 +44,7 @@ class ClientThread(Thread):
                 except Exception as e:    # This is the correct syntax
                     print(e)
                     self.count_down = self.count_down + 1
-                    if self.count_down == 300:
+                    if self.count_down == 6:
                         self.down = True
                         update_down_status(self.session, self.ip, True)
 

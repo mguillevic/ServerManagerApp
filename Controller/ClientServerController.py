@@ -39,6 +39,7 @@ def create_update_server(session,ip, private_ip):
             session.commit()
         session.query(ServerModel).filter(ServerModel.ip_private==private_ip)\
             .update({'ip':ip})
+        session.commit()
         server_model =session.query(ServerModel).filter(ServerModel.ip_private==private_ip).scalar()
     except exc.SQLAlchemyError as e:
         session.rollback()
