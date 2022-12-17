@@ -4,6 +4,7 @@ from Controller.GameController import get_game_by_name
 from Model.ServerManagerModel import ServerManagerModel
 from Model.ClientServerModels import ServerModel,ClientModel,ServerClientLink
 from Remote.ClientThread import ClientThread
+from ClientRest.ServerManagerClient import run_shell_script
 from json import load
 from urllib.request import urlopen
 import hashlib
@@ -55,9 +56,8 @@ def change_server_properties(ip,cpu,ram,latence,session):
     update_cpu_ram_from_server_id(session,ip,cpu,ram,latence)
 
 
-def handle_client_connection(session,request):
+def handle_client_connection(session,name,ip):
     #if new client create client
-    ip = request['ip']
     exist = session.query(exists(ClientModel).where(ClientModel.ip==ip)).scalar()
     if not exist :
         new_client = create_client(ip,session)
@@ -71,11 +71,13 @@ def handle_client_connection(session,request):
     else:
         new_client = get_client_by_ip(session,ip)
     #for the client
-    game = get_game_by_name(session,request['game'])
+    game = get_game_by_name(session,name)
     links_client = get_servers_by_client_id(session,new_client.id)
     for serv in links_client:
         #add latency criteria
         if serv.cpu_usage<game.cpu_usage and serv.available_ram > game.ram and serv.latency<0.15 and not serv.down:
+            rep = run_shell_script(name,serv.ip)
+            print(rep)
             return serv.ip
 
     #if no server works

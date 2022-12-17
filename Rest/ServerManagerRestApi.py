@@ -59,9 +59,9 @@ def get_game(name):
     })
     return jsonify(game)
 
-@app.route("/play", methods=["Get"])
-def play():
-    server_ip = ServerManagerController.handle_client_connection(session,request.json)
+@app.route("/play/<name>/<ip>", methods=["Get"])
+def play(name,ip):
+    server_ip = ServerManagerController.handle_client_connection(session,name,ip)
     return jsonify(server_ip)
 
 # curl http://localhost:5000/games
