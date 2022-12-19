@@ -1,6 +1,6 @@
 # ServerManagerApp
 
-##I- Load balancer configuration
+## Load balancer configuration
 To distribute the work load between the different manager server, we used  the "azure for students" subscription.
 Here are the different configurations : 
 - Nom : LB1
@@ -46,7 +46,7 @@ You need to pass the following json body
 }
 
 
-##II- Server manager configuration
+## Server manager configuration
 Server managers are Azure VMs. For our student subscription, the VMs are in the ressource group CloudGaming_ServerManager.
 VM's names are based on Debian 11 "Bullsey" image:
 ServerManager1
@@ -76,7 +76,7 @@ Then enter the corresponding password.
 ssh -p 22 ServerManager2@24.246.197.210
 Then enter the corresponding password.
 
-###A) Start API
+### Start API
 To start the api you need to go in the following folder : /var/www/html/ServerManagerApp/
 Since we are using python env you need to enter the command, it will activate the virtual environnement: 
 
@@ -99,7 +99,7 @@ This step is to be improved by automating it.
 
 You are all done!
 
-###B) Add a manager
+### Add a manager
 When adding a manager you need to configure its environement so it can run our API.
 
 Run following commands:
@@ -122,7 +122,7 @@ Run following commands:
 - pip install uwsgi
 And you should be able to start the api
 
-###C) API's content
+### API's content
  - Configurations file
  dev.ini will allow to indicate which port to use when requesting endpoints
  config.py allow to add configurations specific to the environment
